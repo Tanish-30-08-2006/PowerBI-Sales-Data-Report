@@ -1,0 +1,200 @@
+After tranforming data we do apply changes that loads the data into report view first glance of powerBI where 
+reports and dashboards are created 
+
+we can view report view ,  tables view , schema visualizer like supabase where all tables will be there and we can connect them by establishing
+relationships by our own (foreign keys and primary keys) ..
+
+now we have 4-5 tables in modelling_dax_data now we have to create relationships from manage relationships in schema view
+
+now we want multiple tables to be connected to a fact table which has foreign keys and dimension tables has informative attributes 
+
+modelling means making relationships mainly user relationships between tables ,  by this we connect data to a single fact table 
+
+while making relationships we avoid many to many and one to one to avoid rebundancies
+
+
+# Now to get {month day year } wise sales we can do two things 
+use  marices and in first one add year and then total sales as values 
+second one add month  then total sales as values to get date wise sales 
+third one add day then total sales as values to get day wise sales ..
+
+OR WE CAN CREATE A Hierarchy which has year -> month --> date so we will pass hierarchy and total sales as values ...
+
+Now if we want to calculate total revenue with gst  18%    
+for this we can go tranfrom data add a new column of revenue calculated from total sales but this will increase our storage data size so we will not make these calculations in power query editor i.e transform data 
+
+OR we can create new measure instead of a whole new actual column in report view itself.. 
+dax is just the formula of that measure or new column we will create for different calculations .. 
+column is row wise calculation of value made from different columns (18% of total sales ) whereas measure give us a single value like sum of total sales 
+
+if we create new column in report view it will not take space as original data remains same in transform data
+in transform data no  new column will be added
+
+now revenue was calculated month wise day wise so we created its new column in report view not in transform data , now if we want to calcuate sum of sales all time we have to create a measure as single number .. 
+
+# use of cards to display measure
+to display one measure (sum of total sales or sum of total revenue ) WE CAN USE CARDS to display measures 
+
+# note to change datatype of measures and new columns created in report view 
+remember to change datatype of sales , unit price , avg or sum sales from general to decimal number especially when we create any new measure from exisitng attribute from fact table
+
+# conditioned columns ..
+now to create some conditions like if total sales for that period is greater than some value then we say sales were high or else low ... so we can know many days , months or years sales were low , we can use hierarchy here for year -- > month -- > day and apply that condition and hierarchy in a matri and check for all days where sales were low .......
+for these conditions we use a measure because columns are calcullated columns , it looks at data row by row and labels it low or high forever so if i label rows high and low and group it by month and year it will not calculate sum for that month or year and again label t high or low , columns are labels for every row we cant group it for month and year later
+# but 
+measure is an temporary attribure which can be calculated for rows and  group of rows for example for month 30 days sum must be calculated and mmust be labelled as high or low measure can do that grouping 
+
+# multiple if else loops --> switch 
+here we labelled sales as high or low so 2 possibilities what if high,very high,low,very low i.e multiple if else cases , there we use switches..
+
+so for example regioon grouping , north -> zone 1 ,  south -> zone 2 ...
+for this we use switch we know it is a permanent label so we can add temp column in report view itself for region grouping in zones , measure is especially used when labelled rows are grouped in future like in sales label of high and low 
+
+code for new column -->
+RegionGrouping = SWITCH(Dim_Customers[Region],"North","Zone 1","South","Zone 2","East","Zone 3","West","Zone 4")
+
+# use of iferror function
+for example when we want to check in the column if some row calculation had errors so how can we do that ..
+by iferror function we can perform a calculation if it has some error then we can write 0 or string "error" or anything we want so we can look up in the table where any row had errored value 
+
+Check Error = IFERROR(Fact_Sales[TotalSales]/0,0) 
+here all rows in this new column check error will be 0 as we pass 0 if error .. as anything/0 will give error..
+
+# what to use when confused for measure vs column .
+Check Error = IFERROR(Fact_Sales[TotalSales]/0,"error")
+here all rows will show error as message in check error column in fact sales table  as /0 will give error 
+
+If we use a Column: Power BI calculates the error once and stores it. It takes up a tiny bit of memory/file size.
+
+If we use a Measure: Power BI calculates the error every time you look at the screen. Since it's a simple /0 check, it's fast, but it's technically "extra work" for the computer to do repeatedly for a result that never changes.
+
+# filter context functions 
+what if we want to calculate sum of sales for east region as a measure ..
+VERY IMP FUNCTION comes here called CALCULATE 
+what we want to do is display cards here for all four regions [SalesEastRegion] , [SalesWestRegion].... and a big card of total sales so we can visually see which region contributed the most by cards 
+
+CALCULATE() is also a filter function which allows us to evaulte a measure under a specific filter
+FILTER() is used to add or strip away some data points within a formula 
+
+remember when we want to see one region sales we will not create a matrix add region and then total sales which will do the same (calculate region wise sales ) but its visually not presentative than cards ...
+so for cards we need a single measure as cards we use single value so we create  4 measures of sum of sales per region and add them individually in card ..
+Sales North Region = CALCULATE(SUM(Fact_Sales[TotalSales]),Dim_Customers[Region]="North")
+Sales East Region = CALCULATE(SUM(Fact_Sales[TotalSales]) , Dim_Customers[Region]="East")
+Sales South Region = CALCULATE(SUM(Fact_Sales[TotalSales]),Dim_Customers[Region]="South")
+Sales West Region = CALCULATE(SUM(Fact_Sales[TotalSales]) , Dim_Customers[Region]="West")
+added these 4 measures in fact table and displayed it in a card with lightning sign where multiple measures can be added in a card
+and a total sales card below it in page 3 
+
+# use of slicer rather than 4 display cards
+when we use a slicer we can select a region and sum of sales would appear for that region..
+now if we want to calculate sum of sales with respect to cities for 1000s of cities we will not add 1000s of measures and add each one to display cards 
+we will add one card of sum of sales and use a slicer to select the city we want sum of sales of ..
+
+# use of filter 
+
+use of filter can also be used when we want to view total sales above some threshold like high low label , we can use filter
+# to remove filter
+we can use "ALL" to remove filter like when we calculate total sales after filter then we have to remove filter everytime using total sales for any cards or any attribute or anything 
+ 
+# use of month to date , year to date sales .. ( MTD,YTD )
+Sales MTD = TOTALMTD([SumofSales], Fact_Sales[Date])
+Sales YTD = TOTALYTD([SumofSales], Fact_Sales[Date])
+
+# SAMEPERIODLASTYEAR sales
+starting from that period in hierarchy total sales from the last year going back will be shown 
+for example on year 2024 in new year hierarchy total sales of 2023 will be shown 
+try [year hierarchy] [factsales[totalSales]], [same period last year sales] , we will see 2024 has 2023 sales..
+
+Last Year Sales = CALCULATE([SumofSales] ,  SAMEPERIODLASTYEAR(Dim_Date[Date]))
+
+
+# DATEADD function which will allow us to calculate last month , last year , last quarter , last day sales 
+last month sale is a measure as we will calculate single value for last momth year day or quarter
+
+Last Month Sale = CALCULATE([SumofSales],DATEADD(Dim_Date[Date],-1,MONTH))
+-1 --> means last month sales to add
+-2 --> sum of sales for last two months for every period
+
+to check this add total sales , last month sales , and year hierarchy .. 
+in that sum of sales for one month will be sum of sales for last month ..
+note --> last month sale are also called rolling month sales 
+
+# NATURAL JOIN
+# to fetch column of different connected table to one table when ACTIVE CONNECTION is there 
+for example , fact table has product id but no product name but we know that productid is RELATED to dim products ( relationship is there ) and productname can be 
+fetched from that so we can add that column in fact table (temp column as we add that in report view ) to permanently add column we have to click transform data and 
+then add column so that column will be permanently added ..
+
+ProductName = RELATED(Dim_Products[ProductName])
+IFERROR(RELATED(Dim_Products[ProductName]), 0)    -->use iferror(func,0) to view 0 in rows where productname could not be fetched 
+
+
+
+# SPECIFIED JOIN     ( ON WHICH COLUMN TO JOIN )
+# what if connection between fact table and product table is INACTIVE so we have to manually tell that give me product name where id of fact table = id od Dim_Products
+# manually joining we use LOOKUP FUNCTION
+
+ProductName = IFERROR(LOOKUPVALUE(Dim_Products[ProductName],Dim_Products[ProductID],Fact_Sales[ProductID]),"error")
+
+
+# INITIALIZING VARIABLES FOR BIG FORMULAS
+
+What if we need to calculate (gross profit) so i.e (total sales - total cost price) 
+Sales Margin = 
+VAR Cost = (0.8)*[SumofSales]
+VAR Revenue = [SumofSales] 
+VAR SalesMargin = Revenue - Cost 
+RETURN SalesMargin
+
+
+# COLUMNS VS MEASURES VS VISUALS
+
+Column --> used when in future no grouping is done by month , year as it will be fix value row by row ..
+Measure --> used when we want to calculate a single value not for every row ..
+Visual -- > columns and measures are added as attributes in right side of our data but we just need to calculate a visual like 
+            running sum , moving average , rolling sum etc for current box(matrix) of our report .. and we want all attributes of 
+            fact_sales to be clean and organised 
+
+            also , we need an attribute for a single visual then we dont want to waste a space of column or measure 
+
+
+
+# to change how a box or matrix looks like 
+
+for example slicer settings , we need tile or buttons (vertical list) , add button of select all , change colour of title of slicer , border colour
+title font , bold , italic , colour in background etc..
+for all of this we select that matrix go to format visuals and surf....
+
+
+# custom visuals or parametres..
+ to create a new parametres we select fact table , then modelling and then new parametre ..( new parameters in in modelling section )
+
+
+
+FIELD PARAMETER 
+PRODUCT NAME --> TOTAL SALES , TOTAL QUANTITY --> FIELDS..
+
+# if we want to add a parameter in which we can choose total sales and total quantity sold for product name or product category 
+
+we create a new parameter named metric picker from which we can pick TWO MEASURES sum of total sales and sum of quantity
+(remember we need to pick measures as we will do grouping in future as we want to calculate that for proudctname or product category) so we must create two measures \
+as sum of quantity and sum of totalSales as quant and total sales are columns calculated row by row ...
+
+we will choose field as new parameter as we want buttons to select not range to slide
+
+now we will create a matrix with productname and we will need values of metric picker( remember metric picker is a slider we cant add directly metric picker to a matrix)
+so we will have to drag its values which are two measures so when we select a one from slicer it displays on that different matrix box we created as a measure..
+so in new matrix box with product name or product accessory name add values as metirc picker values ...
+ 
+
+# FIELD PARAMETER
+CATEGORY NAME  --> TOTAL SALES , SALES NORTH REGION ,SALES SOUTH REGION ,SALES EAST REGION,SALES WEST REGION , TOTAL QUANTITY 
+
+here we create a matrix with category name and values of this box as metric picker with above mentioned fields and year hierarchy matrix generated on a side
+
+
+
+# Performance Analyzer
+in this we can view how many ms it took to change the slicer when we select a field in slicer and if that paramter is added as value in a table how much 
+time it took to make the changes slicer made to that table which had value as that parameters values ..
+
