@@ -1,11 +1,11 @@
-# Comprehensive Sales Analysis & Data Visualization Report
+# 📊 Power BI Sales Data Report - Comprehensive Documentation
 
-## 1. Project Overview
+## 🚀 1. Project Overview
 This project is an advanced Power BI analytical suite designed to provide stakeholders with a 360-degree view of sales performance, profitability, and operational efficiency. By transforming raw transactional data from Excel into interactive visuals, this report enables users to identify high-performing products, seasonal trends, and regional growth opportunities. The report is built upon a robust Star Schema architecture to ensure high performance and accurate data relationships.
 
 ---
 
-## 2. Interactive Demonstrations
+## 🎬 2. Interactive Demonstrations
 The following recordings demonstrate the dynamic interactivity of each report page. Notice how the visuals react instantly to slicer selections and cross-filtering.
 
 ### 1. Running Sales Trend Analysis
@@ -28,7 +28,7 @@ The following recordings demonstrate the dynamic interactivity of each report pa
 
 ---
 
-## 3. Visual Gallery
+## 🖼️ 3. Visual Gallery
 <details>
 <summary>Click here to expand the high-resolution screenshot gallery</summary>
 
@@ -54,7 +54,7 @@ The following recordings demonstrate the dynamic interactivity of each report pa
 
 ---
 
-## 4. Project Directory Structure
+## 📁 4. Project Directory Structure
 Below is the organized directory layout for the assets and documentation included in this repository.
 
 ```text
@@ -75,7 +75,7 @@ PowerBI_Sales_Data_Report/
 
 ---
 
-## 5. Technical Architecture (Data Model)
+## 🏗️ 5. Technical Architecture (Data Model)
 The report is designed using a **Star Schema** for optimal performance. The `Fact_Sales` table is at the center, surrounded by four dimension tables.
 ![Report Schema](assets/screeenshots/schema.png)
 
@@ -86,7 +86,7 @@ The report is designed using a **Star Schema** for optimal performance. The `Fac
 
 ---
 
-## 6. Report Component Summary
+## 📋 6. Report Component Summary
 Before diving into the detailed analysis, here is a high-level summary of the report's structure and primary objectives.
 
 | Page Name | Primary Goal | Key Visual Component |
@@ -100,7 +100,7 @@ Before diving into the detailed analysis, here is a high-level summary of the re
 
 ---
 
-## 7. Extensive Page-by-Page Analysis
+## 🔍 7. Extensive Page-by-Page Analysis
 
 ### Page 1: Running Sales Trend Analysis
 This page focuses on the cumulative growth of sales over time.
@@ -166,7 +166,7 @@ Designed for deep investigation of a single item.
 
 ---
 
-## 6. Advanced DAX Calculations & Functions
+## 🔢 8. Advanced DAX Calculations & Functions
 
 In this project, I used complex DAX formulas to provide insights that simple dragging-and-dropping cannot provide. Below is a detailed breakdown of the functions used.
 
@@ -234,7 +234,7 @@ These allow the user to change what a chart is measuring without me building mul
 
 ---
 
-## 9. Power BI Template Information (.pbit)
+## 💡 9. Power BI Template Information (.pbit)
 To keep this repository lightweight and professional, a **Power BI Template (.pbit)** file can be utilized. 
 
 ### What is a .pbit file?
@@ -251,7 +251,7 @@ A Power BI Template contains the **entire structure** of the report (data model,
 
 ---
 
-## 10. Contact & Contribution
+## 📩 10. Contact & Contribution
 If you have questions about the data model or DAX logic, feel free to reach out through the channels below.
 
 <p align="center">
