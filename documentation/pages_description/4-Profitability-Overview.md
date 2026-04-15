@@ -9,7 +9,7 @@
 <details>
 <summary>Click here to see the interactive GIF</summary>
 
-![GIF](../../assets/screen_recordings/Profitability-Overview-GIF.gif)
+![GIF](../../assets/screen-recordings/Profitability-Overview-GIF.gif)
 </details>
 
 ---

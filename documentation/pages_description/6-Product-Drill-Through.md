@@ -9,7 +9,7 @@
 <details>
 <summary>Click here to see the interactive GIF</summary>
 
-![GIF](../../assets/screen_recordings/Product-Drill-Through-GIF.gif)
+![GIF](../../assets/screen-recordings/Product-Drill-Through-GIF.gif)
 </details>
 
 ---

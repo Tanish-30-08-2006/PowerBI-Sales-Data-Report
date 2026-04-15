@@ -9,7 +9,7 @@
 <details>
 <summary>Click here to see the interactive GIF</summary>
 
-![GIF](../../assets/screen_recordings/Quantity_Decomposition_Analysis_GIF.gif)
+![GIF](../../assets/screen-recordings/Quantity_Decomposition_Analysis_GIF.gif)
 </details>
 
 ---

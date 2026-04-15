@@ -9,7 +9,7 @@
 <details>
 <summary>Click here to see the interactive GIF</summary>
 
-![GIF](../../assets/screen_recordings/Running-Sales-Trend-GIF.gif)
+![GIF](../../assets/screen-recordings/Running-Sales-Trend-GIF.gif)
 </details>
 
 ---
