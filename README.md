@@ -58,18 +58,18 @@ The following recordings demonstrate the dynamic interactivity of each report pa
 Below is the organized directory layout for the assets and documentation included in this repository.
 
 ```text
-PowerBI_Sales_Data_Report/
+PowerBI-Sales-Data-Report/
 ├── assets/
 │   ├── screen-recordings/      # Video demonstrations of every report page
 │   └── screeenshots/           # Static high-resolution snapshots and schema
 ├── data/
 │   └── Sales_Raw_Data.xlsx     # The primary dataset used for the data model
 ├── documentation/
-│   ├── DAX_Measures.md         # Detailed logic for every calculation
-│   └── pages_description/      # Individual focus docs for all 6 pages (Hyphenated)
-├── report-template/
-│   ├── Sales-Data-PowerBI-Template.pbit  # The lightweight template file
-│   └── Sales_Data_Report_PowerBI_File.pbix # The main Power BI Desktop file
+│   ├── DAX-Measures.md         # Detailed logic for every calculation
+│   └── pages-description-markdown-files/  # Detailed focus docs for all 6 pages
+├── PowerBI-report-and-template/
+│   ├── Sales-Data-Report-Template-PowerBI.pbit  # The lightweight template file
+│   └── Sales-Data-Report-PowerBI.pbix           # The main Power BI Desktop file
 └── README.md                   # Project master documentation
 ```
 
