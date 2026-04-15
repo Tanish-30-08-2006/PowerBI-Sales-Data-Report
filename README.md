@@ -9,22 +9,22 @@ This project is an advanced Power BI analytical suite designed to provide stakeh
 The following recordings demonstrate the dynamic interactivity of each report page. Notice how the visuals react instantly to slicer selections and cross-filtering.
 
 ### 1. Running Sales Trend Analysis
-![Running Sales Trend GIF](assets/screen_recordings/Running-Sales-Trend-GIF.gif)
+![Running Sales Trend GIF](assets/screen-recordings/Running-Sales-Trend-GIF.gif)
 
 ### 2. Physical Quantity Decomposition Analysis
-![Quantity Decomposition Analysis GIF](assets/screen_recordings/Quantity_Decomposition_Analysis_GIF.gif)
+![Quantity Decomposition Analysis GIF](assets/screen-recordings/Quantity_Decomposition_Analysis_GIF.gif)
 
 ### 3. Product Performance & Transaction Metrics
-![Product Performance and Transactions GIF](assets/screen_recordings/Product-Performance-and-Transactions-GIF.gif)
+![Product Performance and Transactions GIF](assets/screen-recordings/Product-Performance-and-Transactions-GIF.gif)
 
 ### 4. Comprehensive Profitability Overview
-![Profitability Overview GIF](assets/screen_recordings/Profitability-Overview-GIF.gif)
+![Profitability Overview GIF](assets/screen-recordings/Profitability-Overview-GIF.gif)
 
 ### 5. Executive KPI & Target Achievement Tracking
-![KPI and Target Tracking GIF](assets/screen_recordings/KPI-and-Target-Tracking-GIF.gif)
+![KPI and Target Tracking GIF](assets/screen-recordings/KPI-and-Target-Tracking-GIF.gif)
 
 ### 6. Granular Product Drill-Through
-![Product Drill-Through GIF](assets/screen_recordings/Product-Drill-Through-GIF.gif)
+![Product Drill-Through GIF](assets/screen-recordings/Product-Drill-Through-GIF.gif)
 
 ---
 
@@ -60,16 +60,16 @@ Below is the organized directory layout for the assets and documentation include
 ```text
 PowerBI_Sales_Data_Report/
 ├── assets/
-│   ├── screen_recordings/      # Video demonstrations of every report page
+│   ├── screen-recordings/      # Video demonstrations of every report page
 │   └── screeenshots/           # Static high-resolution snapshots and schema
 ├── data/
 │   └── Sales_Raw_Data.xlsx     # The primary dataset used for the data model
 ├── documentation/
 │   ├── DAX_Measures.md         # Detailed logic for every calculation
-│   └── pages_description/      # Individual focus docs for all 6 pages
-├── reports/
-│   ├── Sales_Data_Report.pbix  # The main Power BI Desktop file
-│   └── Sales_Data_Report.pdf   # Exported static version of the report
+│   └── pages_description/      # Individual focus docs for all 6 pages (Hyphenated)
+├── report-template/
+│   ├── Sales-Data-PowerBI-Template.pbit  # The lightweight template file
+│   └── Sales_Data_Report_PowerBI_File.pbix # The main Power BI Desktop file
 └── README.md                   # Project master documentation
 ```
 
@@ -248,6 +248,14 @@ A Power BI Template contains the **entire structure** of the report (data model,
 1.  In Power BI Desktop, go to **File > Export > Power BI Template**.
 2.  **Description Prompt**: When prompted for a description, you should write: 
     > "Standardized Sales Performance Blueprint. Features a Star Schema architecture, 25+ advanced DAX measures (Time Intelligence, Profitability), and a 6-page interactive UI. Optimized for cross-region retail analysis."
+
+### 🛠️ Troubleshooting: Data Source Error
+If you see an error when opening the `.pbit` file, it is because the file path to the Excel data has changed. To fix this:
+1.  Click **"Transform Data"** in the top ribbon.
+2.  Go to **"Data Source Settings"**.
+3.  Select the Excel file and click **"Change Source"**.
+4.  Browse and select your local `data/Sales_Raw_Data.xlsx` file.
+5.  Click **"Close & Apply"**. All visuals will now populate!
 
 ---
 
